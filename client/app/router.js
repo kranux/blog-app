@@ -7,6 +7,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+	this.route('posts');
+});
+
+Router.reopen({
+	location: 'hash'
 });
 
 export default Router;

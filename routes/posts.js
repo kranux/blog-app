@@ -5,9 +5,15 @@ var db = require('../db');
 /* GET posts listing. */
 router.get('/', async (req, res) => {
 	try {
-		res.send(await db.getUsers());
+		res.send({
+			data: (await db.getPosts()).map(user => ({
+				id: user.id,
+				type: 'post',
+				attributes: user
+			}))
+		});
 	} catch (ex) {
-		res.send('An error has occoured');
+		res.status(500).send(`An error has occoured: ${ex}`);
 	}
 });
 

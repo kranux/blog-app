@@ -13,7 +13,7 @@ module.exports.initialize = () => {
 	});
 };
 
-module.exports.getUsers = () => new Promise((resolve, reject) => {
+module.exports.getPosts = () => new Promise((resolve, reject) => {
 	db.all('SELECT rowid AS id, title, content, author, created, modified FROM posts', (err, data) => {
 		if (err) {
 			reject(err);
