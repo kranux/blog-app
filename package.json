@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "lint": "eslint app.js routes/** db/** -c eslintrc.json"
+    "lint": "eslint app.js routes/** db/** client/app/**/*.js -c eslintrc.json"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

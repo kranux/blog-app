@@ -6,7 +6,7 @@ var db = require('../db');
 router.get('/', async (req, res) => {
 	try {
 		res.send({
-			data: (await db.getPosts()).map(user => ({
+			data: (await db.getPosts()).map((user) => ({
 				id: user.id,
 				type: 'post',
 				attributes: user
