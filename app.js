@@ -19,14 +19,16 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.use((req, res, next) => {
- res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
- next();
+	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+	res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+	next();
 });
 
 app.use('/', index);

@@ -1,0 +1,21 @@
+{{outlet}}
+
+<h1>Create post</h1>
+<form {{action "createTask" on="submit"}}>
+	<div>
+ 	<label for='title'>Title</label>
+ 	{{input value=title class="title"}}
+	</div>
+
+	<div>
+		<label for='content'>Content</label>
+		{{input value=content class="title"}}
+	</div>
+
+	<div>
+  <button type="submit">Save</button>
+		{{#link-to "posts"}}
+  <button>Back</button>
+		{{/link-to}}
+	</div>
+</form>
