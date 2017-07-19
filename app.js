@@ -24,6 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
+app.use((req, res, next) => {
+ res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+ next();
+});
+
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
