@@ -1,15 +1,15 @@
 {{outlet}}
 {{#link-to "create"}}
-  Create Post
+	Create Post
 {{/link-to}}
 {{#each model as |post|}}
 	<article class="listing">
-			<h3>{{post.title}}</h3>
-			<div class="metadata">
-				<span>Author: {{post.author}}</span>
-				<span>Created: {{post.created}}</span>
-				<span>Modified: {{post.modified}}</span>
-			</div>
-			<div class="content">{{post.content}}</div>
+		<h3>{{post.title}}</h3>
+		<div class="metadata">
+			<span>Author: {{post.author}}</span>
+			<span>Created: {{post.created}}</span>
+			<span>Modified: {{post.modified}}</span>
+		</div>
+		<div class="content">{{post.content}}</div>
 	</article>
 {{/each}}

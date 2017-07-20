@@ -1,0 +1,21 @@
+{{outlet}}
+
+<h1>Login</h1>
+<form {{action "login" on="submit"}}>
+	<div>
+ 	<label for='email'>Email</label>
+ 	{{input value=email class="title"}}
+	</div>
+
+	<div>
+		<label for='password'>Password</label>
+		{{input value=password class="title"}}
+	</div>
+
+	<div>
+  <button type="submit">Login</button>
+		{{#link-to "posts"}}
+  	<button>Cancel</button>
+		{{/link-to}}
+	</div>
+</form>

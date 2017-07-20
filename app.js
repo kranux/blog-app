@@ -1,16 +1,20 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var posts = require('./routes/posts');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const posts = require('./routes/posts');
 
-var app = express();
+const app = express();
 
-var db = require('./db');
+const db = require('./db');
+
+const passport = require('passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +27,11 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
+app.use(session({ secret: 'Z??;8drST^rPFU=-W.b8EZs$.dbvj>[-v9YZy6PJt$$>"N*{4#8z"wARBMR[:["}*^YE_^f/5hzjxHRCD7@CL*%7.(2Xz/22jgd<>})LfTFLTkM4@&D3#m?:d%74Q=N' }));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
 	res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -32,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', index);
-app.use('/api/users', users);
+app.use('/login', users);
 app.use('/api/posts', posts);
 
 // catch 404 and forward to error handler
