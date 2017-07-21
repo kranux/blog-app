@@ -21,7 +21,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 router.post('/users', (req, res, next) => {
 	req.body = {
-		username: req.body.data.attributes.email,
+		username: req.body.data.attributes.username,
 		password: req.body.data.attributes.password
 	};
 	next();

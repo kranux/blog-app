@@ -12,5 +12,16 @@ export default Ember.Service.extend({
 	logout: function() {
 		this.set('user', null);
 		this.get('store').unloadAll('user');
+	},
+
+	login: function(username, password) {
+		return new Promise((resolve, reject) => {
+			const user = this.get('store').createRecord('user', {username, password});
+			user.save().then(() => {
+				this.setUser({username});
+				resolve(true);
+			}).catch(reject);
+		});
+
 	}
 });
