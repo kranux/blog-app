@@ -48,8 +48,21 @@ module.exports.createPost = (post) => new Promise((resolve, reject) => {
 });
 
 module.exports.getUser = (username, password) => new Promise((resolve, reject) => {
-	const stmt = db.prepare('SELECT username FROM users WHERE (username=? AND password=?)');
+	const stmt = db.prepare('SELECT username, rowid AS id FROM users WHERE (username=? AND password=?)');
 	stmt.get(username, password, function(err, user){
+		if (err) {
+			reject(err);
+		}
+		if (!user) {
+			reject('Not found');
+		}
+		resolve(user);
+	});
+});
+
+module.exports.userById = (userId) => new Promise((resolve, reject) => {
+	const stmt = db.prepare('SELECT username FROM users WHERE (rowid=?)');
+	stmt.get(userId, function(err, user){
 		if (err) {
 			reject(err);
 		}

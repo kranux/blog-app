@@ -5,6 +5,15 @@ export default Ember.Service.extend({
 
 	store: Ember.inject.service('store'),
 
+	init: function(...args) {
+		this._super(args);
+		this.get('store').findRecord('user', -1)
+			.then(console.log)
+			.catch(e => {
+				this.set('user', null);
+			});
+	},
+
 	setUser: function(user) {
 		this.set('user', user);
 	},
@@ -15,7 +24,7 @@ export default Ember.Service.extend({
 	},
 
 	login: function(username, password) {
-		return new Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			const user = this.get('store').createRecord('user', {username, password});
 			user.save().then(() => {
 				this.setUser({username});
