@@ -4,6 +4,8 @@ export default Ember.Controller.extend({
 
 	auth: Ember.inject.service('auth'),
 
+	error: '',
+
 	actions: {
 		login: function () {
 			this.get('auth')
@@ -13,7 +15,9 @@ export default Ember.Controller.extend({
 					this.set('password', '');
 					this.transitionToRoute('posts');
 				})
-				.catch(console.error);
+				.catch(() => {
+					this.set('error', 'Invalid credentials.');
+				});
 		}
 	}
 });

@@ -1,5 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
+const bcrypt = require('bcrypt');
+
 const INSERT_POST_STATEMENT = 'INSERT INTO posts VALUES (?, ?, ?, ?, ?)';
 
 const initializePosts = () => {
@@ -13,11 +15,14 @@ const initializePosts = () => {
 };
 
 const initializeUsers = () => {
-	db.run('CREATE TABLE users (username TEXT, password TEXT)');
+	db.run('CREATE TABLE users (username TEXT, hash TEXT)');
 
 	const stmt = db.prepare('INSERT INTO users VALUES(?, ?)');
-	stmt.run('andrius.kripaitis@gmail.com', '123');
-	stmt.finalize();
+
+	bcrypt.hash('password', 10).then((hash) => {
+		stmt.run('user', hash);
+		stmt.finalize();
+	});
 }
 
 module.exports.initialize = () => {
@@ -48,21 +53,32 @@ module.exports.createPost = (post) => new Promise((resolve, reject) => {
 });
 
 module.exports.getUser = (username, password) => new Promise((resolve, reject) => {
-	const stmt = db.prepare('SELECT username, rowid AS id FROM users WHERE (username=? AND password=?)');
-	stmt.get(username, password, function(err, user){
+	const stmt = db.prepare('SELECT username, rowid AS id, hash FROM users WHERE (username=?)');
+
+	stmt.get(username, (err, user) => {
+		console.log(err, user);
 		if (err) {
-			reject(err);
+			return reject(err);
 		}
 		if (!user) {
-			reject('Not found');
+			return reject('Not found');
 		}
-		resolve(user);
+		bcrypt.compare(password, user.hash)
+			.then(result => {
+				if (result) {
+					resolve({
+						id: user.id,
+						username: user.username
+					})
+				}
+				reject('Password does not match.');
+			}).catch(reject);
 	});
 });
 
 module.exports.userById = (userId) => new Promise((resolve, reject) => {
 	const stmt = db.prepare('SELECT username FROM users WHERE (rowid=?)');
-	stmt.get(userId, function(err, user){
+	stmt.get(userId, (err, user) => {
 		if (err) {
 			reject(err);
 		}

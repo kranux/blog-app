@@ -7,11 +7,11 @@ export default Ember.Service.extend({
 
 	init: function(...args) {
 		this._super(args);
-		this.get('store').findRecord('user', -1)
-			.then(console.log)
-			.catch(e => {
-				this.set('user', null);
-			});
+		// this.get('store').findRecord('user', -1)
+		// 	.then(console.log)
+		// 	.catch(e => {
+		// 		this.set('user', null);
+		// 	});
 	},
 
 	setUser: function(user) {
