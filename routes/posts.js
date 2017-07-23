@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 		const id = await db.createPost(req.body.data.attributes);
 		res.send({data: {id, type}});
 	} catch (ex) {
-		res.send({errors: [String(ex)]});
+		res.status(500).send({errors: [String(ex)]});
 	}
 });
 
