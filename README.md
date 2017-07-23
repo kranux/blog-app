@@ -16,4 +16,8 @@ Just playing with Express.js + Ember.js;
 
 ```
 > git clone https://github.com/kranux/blog-app && cd blog-app && npm install && npm run install:client && npm run build && npm start
+
+Open http://localhost:3000 in your browser
+
+Enter user credentials: username password
 ```
