@@ -4,7 +4,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('connect-flash');
 const db = require('./db');
 const sessionstore = require('sessionstore');
 const app = express();
