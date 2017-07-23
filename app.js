@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 const db = require('./db');
 const sessionstore = require('sessionstore');
 const app = express();
-var cors = require('cors')
+const cors = require('cors')
 
 app.use(cors({
 	credentials: true,
@@ -17,8 +17,8 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(session({
-	secret: 'aaaaeeerrrrttt',
-	name: 'myUniqueAppName',
+	secret: 'very.secure',
+	name: 'blog-app',
 	store: new session.MemoryStore(),
 	domain: '.localhost:4200',
 	cookie: {

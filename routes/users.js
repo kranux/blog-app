@@ -5,12 +5,10 @@ const db = require('../db');
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser((user, done) => {
-	console.log('serializeUser', user);
 	done(null, user.id);
 });
 
 passport.deserializeUser((userId, done) => {
-	console.log('deserialize', userId);
 	db.userById(userId).then(user => {
 		done(null, user);
 	});
@@ -33,13 +31,10 @@ router.post('/users',
 },
 passport.authenticate('local'),
 (req, res) => {
-	req.session.aaa = 'bbbb';
 	res.send({data: {id: -1, type: 'user', attributes: req.user}});
 });
 
 router.get('/users/:id', (req, res) => {
-	console.log('get user', req.isAuthenticated());
-	console.log(req.session)
 	if (req.isAuthenticated()) {
 		res.send({data: {id: -1, type: 'user', attributes: req.user}});
 	} else {
