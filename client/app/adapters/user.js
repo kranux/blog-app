@@ -8,7 +8,6 @@ export default DS.JSONAPIAdapter.extend({
 		'X-Requested-With': 'XMLHttpRequest'
 	},
 	ajax: function (url, method, hash) {
-		console.log(url, method, hash);
 		hash = hash || {};
 		hash.crossDomain = true;
 		hash.xhrFields = { withCredentials: true };

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+	error: '',
+
 	actions: {
 		createTask: function () {
 			const post = this.store.createRecord('post', {
@@ -10,8 +12,8 @@ export default Ember.Controller.extend({
 
 			post.save().then(() => {
 				this.transitionToRoute('posts');
-			}).catch((e) => {
-				console.error('error has occoured', e);
+			}).catch(() => {
+				this.set('error', 'An error has occoured.');
 			});
 		}
 	}

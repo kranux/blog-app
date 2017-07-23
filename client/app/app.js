@@ -18,12 +18,12 @@ App = Ember.Application.extend({
 loadInitializers(App, config.modulePrefix);
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
-  host: 'http://localhost:3000',
-  ajax: function(url, method, hash) {
-    hash.crossDomain = true;
-    hash.xhrFields = {withCredentials: true};
-    return this._super(url, method, hash);
-  }
+	host: 'http://localhost:3000',
+	ajax: function(url, method, hash) {
+		hash.crossDomain = true;
+		hash.xhrFields = {withCredentials: true};
+		return this._super(url, method, hash);
+	}
 });
 
 export default App;

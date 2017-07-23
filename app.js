@@ -5,9 +5,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const db = require('./db');
-const sessionstore = require('sessionstore');
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
 
 app.use(cors({
 	credentials: true,
@@ -24,7 +23,6 @@ app.use(session({
 		httpOnly: false,
 		secure: false,
 		path: '/',
-		secure : false,
 		maxAge : (4 * 60 * 60 * 1000),
 		domain: 'http://localhost:4200'
 	}

@@ -9,30 +9,27 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((userId, done) => {
-	db.userById(userId).then(user => {
+	db.userById(userId).then( (user) => {
 		done(null, user);
 	});
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
 	db.getUser(username, password)
-		.then(user => done(null, user), err => done(null, false, { message: err }))
-		.catch(err => done(null, false, { message: err }));
-	}
-));
+		.then((user) => done(null, user), (err) => done(null, false, { message: err }))
+		.catch((err) => done(null, false, { message: err }));
+}));
 
 router.post('/users',
-(req, res, next) => {
-	req.body = {
-		username: req.body.data.attributes.username,
-		password: req.body.data.attributes.password
-	};
-	next();
-},
-passport.authenticate('local'),
-(req, res) => {
-	res.send({data: {id: -1, type: 'user', attributes: req.user}});
-});
+	(req, res, next) => {
+		req.body = {
+			username: req.body.data.attributes.username,
+			password: req.body.data.attributes.password
+		};
+		next();
+	}, passport.authenticate('local'), (req, res) => {
+		res.send({data: {id: -1, type: 'user', attributes: req.user}});
+	});
 
 router.get('/users/:id', (req, res) => {
 	if (req.isAuthenticated()) {
