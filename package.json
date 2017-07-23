@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-				"prepush": "npm run lint && npm test",
-				"precommit": "npm run lint && npm test",
+				"prepush": "npm test",
+				"precommit": "npm run lint",
 				"start:dev": "concurrently \"npm run start-server:dev\" \"npm run start-client:dev\" ",
     "build": "cd ./client && ember build",
     "install:client": "cd ./client && npm install",
