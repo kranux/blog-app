@@ -34,7 +34,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
-
 app.use(require('./routes/users').passport.initialize());
 app.use(require('./routes/users').passport.session());
 
