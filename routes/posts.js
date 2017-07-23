@@ -4,7 +4,6 @@ const db = require('../db');
 
 const type = 'post';
 
-/* GET posts listing. */
 router.get('/', async (req, res) => {
 	try {
 		res.send({
